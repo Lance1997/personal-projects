@@ -1,5 +1,5 @@
 {
-  "version": "6c598564",
+  "version": "9d891a02",
   "entry": {
     "module": "/build/entry.client-JMVKQKKR.js",
     "imports": [
@@ -10,7 +10,7 @@
     "root": {
       "id": "root",
       "path": "",
-      "module": "/build/root-T6VGFIS5.js",
+      "module": "/build/root-GKCGG62O.js",
       "hasAction": false,
       "hasLoader": false,
       "hasCatchBoundary": false,
@@ -72,5 +72,5 @@
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-6C598564.js"
+  "url": "/build/manifest-9D891A02.js"
 }
