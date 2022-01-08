@@ -24,7 +24,7 @@ const AppButton = (props: Props) => {
       " hover:text-pink-600 hover:bg-none hover:border-rose-600 border-gray-200 text-white bg-gradient-to-r from-rose-600 to-pink-600 shadow-md shadow-pink-600/40";
   } else if (props.color === "tertiary") {
     computedClasses +=
-      " hover:text-gray-600 hover:bg-none hover:border-gray-600 border-gray-200 text-white bg-gradient-to-r from-gray-400 to-gray-800 shadow-md shadow-gray-600/40";
+      " hover:text-white hover:bg-none hover:border-gray-600 border-gray-200 text-white bg-gradient-to-r from-gray-400 to-gray-800 shadow-md shadow-gray-600/40";
   }
 
   if (buttonSize === "default") {
