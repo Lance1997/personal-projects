@@ -38,7 +38,7 @@ const AppCard = (props: Props) => {
       style={style}
     >
       <div className="flex flex-row gap-x-4 justify-between">
-        <h3 className="text-white">{props.username}</h3>
+        <h3 style={{ color: props.textColor }}>{props.username}</h3>
         {(props.facebook || props.twitter) && (
           <div className="flex gap-x-4">
             {props.twitter && (
