@@ -14,6 +14,7 @@ type Props = {
   website?: string;
   twitter?: string;
   facebook?: string;
+  classes?: string;
 };
 
 const AppCard = (props: Props) => {
@@ -24,15 +25,19 @@ const AppCard = (props: Props) => {
     website = "website";
   }
 
-  console.log("re-render", props.backgroundColor);
   const style = {
     backgroundColor: props.backgroundColor,
     color: props.textColor,
   };
 
   return (
-    <div className={`border-2 border-gray-200 p-3`} style={style}>
-      <div className="flex gap-x-4 flex-row justify-between">
+    <div
+      className={`p-3 w-full border-2 border-gray-200 ${
+        props.classes ? props.classes : ""
+      }`}
+      style={style}
+    >
+      <div className="flex flex-row gap-x-4 justify-between">
         <h3 className="text-white">{props.username}</h3>
         {(props.facebook || props.twitter) && (
           <div className="flex gap-x-4">
@@ -44,7 +49,7 @@ const AppCard = (props: Props) => {
               >
                 <AiFillTwitterSquare
                   size="32"
-                  className="cursor-pointer hover:shadow-xl transition"
+                  className="transition cursor-pointer hover:shadow-xl"
                 />{" "}
               </a>
             )}
@@ -56,7 +61,7 @@ const AppCard = (props: Props) => {
               >
                 <AiFillFacebook
                   size="32"
-                  className="cursor-pointer hover:shadow-xl transition"
+                  className="transition cursor-pointer hover:shadow-xl"
                 />
               </a>
             )}
@@ -67,12 +72,12 @@ const AppCard = (props: Props) => {
         {(props.nickname || props.email) && (
           <div className="space-y-2">
             {props.nickname && (
-              <p className="text-md font-semibold font-mono">
+              <p className="font-mono font-semibold text-md">
                 Nickname: ({props.nickname})
               </p>
             )}
             {props.email && (
-              <p className="text-md flex gap-x-2 items-center">
+              <p className="flex gap-x-2 items-center text-md">
                 <AiTwotoneMail />{" "}
                 <a
                   href={`mailto:${props.email}`}
@@ -88,7 +93,7 @@ const AppCard = (props: Props) => {
 
         {props.website && (
           <div className="mt-2">
-            <p className="text-md font-medium flex gap-x-2 items-center">
+            <p className="flex gap-x-2 items-center font-medium text-md">
               <AiOutlineLink className="" />
               <a
                 href={props.website}

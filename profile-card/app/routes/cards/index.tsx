@@ -1,4 +1,4 @@
-import type { ActionFunction, MetaFunction } from "remix";
+import { ActionFunction, MetaFunction, redirect } from "remix";
 import { object, string } from "yup";
 
 import {
@@ -14,6 +14,7 @@ import { validateCardField } from "~/lib/form/validation";
 import FormInput from "~/components/form/FormInput";
 import AppCard from "~/components/UI/AppCard";
 import { useState } from "react";
+import { saveCard } from "~/lib/card";
 
 export const meta: MetaFunction = () => {
   const [title, description] = [
@@ -67,7 +68,7 @@ export const action: ActionFunction = async ({ request }) => {
   const backgroundColor = form.get("backgroundColor");
   const textColor = form.get("textColor");
 
-  const redirectTo = form.get("redirectTo") || "/cards";
+  const redirectTo = form.get("redirectTo") || "/";
   if (typeof redirectTo !== "string") {
     return badRequest({
       formError: `Form not submitted correctly.`,
@@ -123,9 +124,15 @@ export const action: ActionFunction = async ({ request }) => {
     return badRequest({ fieldErrors, fields });
 
   // connect to database and save the data
-  console.log("validation successfull");
-  console.log(fields);
-  return json({ formError: "" }, { status: 201 });
+  const data = await saveCard(fields);
+  if (data.name) {
+    return redirect(redirectTo + "?url=" + data.name);
+  } else {
+    return badRequest({
+      formError: `Could not save data: ${data || " please try again later."}`,
+      fields,
+    });
+  }
 };
 
 const Index = () => {
@@ -139,8 +146,8 @@ const Index = () => {
     nickname: "",
     email: "",
     website: "",
-    backgroundColor: "",
-    textColor: "",
+    backgroundColor: "#DB2777",
+    textColor: "#ffffff",
     facebook: "",
     twitter: "",
   });
@@ -151,13 +158,12 @@ const Index = () => {
     setDataPreview((prevState) => {
       return { ...prevState, ...newState };
     });
-    console.log("update state", dataPreview.backgroundColor, "ended");
   };
 
   const transition = useTransition();
   const [searchParams] = useSearchParams();
   return (
-    <div className="grid h-full grid-cols-2">
+    <div className="grid grid-cols-2 h-full">
       <section className="px-8 text-white bg-pink-600">
         <div>
           <h1 className="text-white">Generate a Card</h1>
@@ -187,7 +193,7 @@ const Index = () => {
                 ) : null}
               </div>
 
-              <section className="grid w-full grid-cols-2 gap-x-8">
+              <section className="grid grid-cols-2 gap-x-8 w-full">
                 <FormInput
                   value={actionData?.fields?.nickname}
                   error={actionData?.fieldErrors?.nickname}
