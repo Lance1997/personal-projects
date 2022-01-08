@@ -1,7 +1,10 @@
 node_modules
 
-/.cache
-/build
-/public/build
+build
+public/build
 .env
-/app/tailwind.css
+app/tailwind.css
+.cache
+.vercel
+.output
+api/_build
