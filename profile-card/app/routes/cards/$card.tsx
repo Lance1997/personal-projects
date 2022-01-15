@@ -91,7 +91,7 @@ const CardViewPage = () => {
   };
   let cardData = useLoaderData<LoaderData>();
   return (
-    <div className="mx-auto w-full max-w-xl h-screen">
+    <div className="px-2 mx-auto w-full max-w-xl h-screen">
       <section className="space-y-8">
         <Link to="/" prefetch="render">
           <h1 className="cursor-pointer hover:text-pink-700">Profile Card</h1>

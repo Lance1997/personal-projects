@@ -5,6 +5,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
+  useParams,
 } from "remix";
 import type { MetaFunction, LinksFunction } from "remix";
 import styles from "./tailwind.css";
@@ -66,5 +68,32 @@ export default function App() {
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  if (caught.status === 404) {
+    return (
+      <div className="grid place-items-center px-4 mx-auto max-w-2xl h-screen">
+        <section className="space-y-5">
+          <h1>404 - {caught.statusText}</h1>
+          <h2>{caught.data}</h2>
+        </section>
+      </div>
+    );
+  }
+  throw new Error(caught.data);
+}
+
+//@ts-ignore
+export function ErrorBoundary({ error }) {
+  return (
+    <div className="grid place-items-center px-4 mx-auto max-w-2xl h-screen">
+      <section className="space-y-5">
+        <h1>App Error</h1>
+        <h2 className="pl-5">{error.message}</h2>
+      </section>
+    </div>
   );
 }
