@@ -29,7 +29,6 @@ export const validateCardField = async ({ type, value }: Input) => {
     case "nickname":
       validationMessage = await string()
         .nullable()
-        .min(5)
         .max(50)
         .validate(value)
         .then(() => "")
