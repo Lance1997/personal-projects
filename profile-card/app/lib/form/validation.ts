@@ -86,7 +86,6 @@ export const validateCardField = async ({ type, value }: Input) => {
       break;
     case "aboutMe":
       validationMessage = await string()
-        .min(10)
         .max(100)
         .nullable()
         .validate(value)
