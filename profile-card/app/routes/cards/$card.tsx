@@ -41,7 +41,8 @@ export const meta: MetaFunction = ({
     description: description,
     "twitter:title": title,
     "twitter:description": description,
-    "twitter:image": "https://profilecardgen.discoverlance.com/logo.png",
+    "twitter:image":
+      "https://profilegen.discoverlance.com/android-chrome-512x512.png",
     "twitter:image:alt": `${data.card.username} Profile Card Image`,
     "twitter:card": "summary",
     "twitter:creator": "@" + data.card.twitter,
@@ -166,7 +167,7 @@ const CardViewPage = () => {
 
           <p>
             <a
-              href={`https://www.linkedin.com/shareArticle?mini=true&url=${cardData.card.url}&title=My%20Profile%20Card&summary=See%20my%20awesome%20profile%20card.&source=https://profilecardgen.discoverlance.com`}
+              href={`https://www.linkedin.com/shareArticle?mini=true&url=${cardData.card.url}&title=My%20Profile%20Card&summary=See%20my%20awesome%20profile%20card.&source=https://profilegen.discoverlance.com`}
               target="_blank"
               rel="noopener noreferrer"
             >

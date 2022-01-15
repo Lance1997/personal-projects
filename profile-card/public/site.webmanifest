@@ -1,6 +1,6 @@
 {
   "name": "Profile Card Generator",
-  "short_name": "profilecardgen",
+  "short_name": "profilegen",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
