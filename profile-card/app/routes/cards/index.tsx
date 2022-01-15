@@ -15,6 +15,7 @@ import FormInput from "~/components/form/FormInput";
 import AppCard from "~/components/UI/AppCard";
 import { useState } from "react";
 import { saveCard } from "~/lib/card";
+import FormTextArea from "~/components/form/FormTextArea";
 
 export const meta: MetaFunction = () => {
   const [title, description] = [
@@ -38,6 +39,7 @@ export type GeneratedCard = {
   twitter: string;
   backgroundColor: string;
   textColor: string;
+  aboutMe: string;
 };
 
 type ActionData = {
@@ -51,6 +53,7 @@ type ActionData = {
     twitter: string | Promise<string> | undefined;
     backgroundColor: string | Promise<string> | undefined;
     textColor: string | Promise<string> | undefined;
+    aboutMe: string | Promise<string> | undefined;
   };
   fields?: GeneratedCard;
 };
@@ -67,13 +70,7 @@ export const action: ActionFunction = async ({ request }) => {
   const facebook = form.get("facebook");
   const backgroundColor = form.get("backgroundColor");
   const textColor = form.get("textColor");
-
-  const redirectTo = form.get("redirectTo") || "/";
-  if (typeof redirectTo !== "string") {
-    return badRequest({
-      formError: `Form not submitted correctly.`,
-    });
-  }
+  const aboutMe = form.get("aboutMe");
 
   const fields = {
     username,
@@ -84,6 +81,7 @@ export const action: ActionFunction = async ({ request }) => {
     facebook,
     backgroundColor,
     textColor,
+    aboutMe,
   } as GeneratedCard;
   const fieldErrors = {
     username: await validateCardField({
@@ -118,6 +116,10 @@ export const action: ActionFunction = async ({ request }) => {
       type: "textColor",
       value: textColor || "",
     }),
+    aboutMe: await validateCardField({
+      type: "aboutMe",
+      value: aboutMe || "",
+    }),
   };
 
   if (Object.values(fieldErrors).some(Boolean))
@@ -126,7 +128,13 @@ export const action: ActionFunction = async ({ request }) => {
   // connect to database and save the data
   const data = await saveCard(fields);
   if (data.name) {
-    return redirect(redirectTo + "?url=" + data.name);
+    const redirectTo = form.get("redirectTo") || "/cards/" + data.name;
+    if (typeof redirectTo !== "string") {
+      return badRequest({
+        formError: `Form not submitted correctly.`,
+      });
+    }
+    return redirect(redirectTo);
   } else {
     return badRequest({
       formError: `Could not save data: ${data || " please try again later."}`,
@@ -150,6 +158,7 @@ const Index = () => {
     textColor: "#ffffff",
     facebook: "",
     twitter: "",
+    aboutMe: "",
   });
 
   const updateDataPreview = (type: string, value: string) => {
@@ -167,12 +176,12 @@ const Index = () => {
       <section className="px-8 text-white bg-pink-600">
         <div>
           <h1 className="text-white">Generate a Card</h1>
-          <h2 className="text-2xl text-white">
-            Fill in the options below to generate a card
+          <h2 className="text-xl text-white">
+            No other field is required apart from your username.
           </h2>
 
           {/* Form */}
-          <section className="mt-12">
+          <section className="mt-3">
             <Form
               method="post"
               aria-describedby={
@@ -226,7 +235,7 @@ const Index = () => {
                   error={actionData?.fieldErrors?.website}
                   name="website"
                   type="text"
-                  label="website"
+                  label="Website"
                   placeholder="full website url"
                   updateCardPreview={updateDataPreview}
                 />
@@ -235,7 +244,7 @@ const Index = () => {
                   error={actionData?.fieldErrors?.facebook}
                   name="facebook"
                   type="text"
-                  label="facebook"
+                  label="Facebook"
                   placeholder="account name only"
                   updateCardPreview={updateDataPreview}
                 />
@@ -248,6 +257,16 @@ const Index = () => {
                   placeholder="account name only"
                   updateCardPreview={updateDataPreview}
                 />
+                <div className="col-span-full">
+                  <FormTextArea
+                    value={actionData?.fields?.aboutMe}
+                    error={actionData?.fieldErrors?.aboutMe}
+                    name="aboutMe"
+                    label="About Me"
+                    placeholder="Say something about yourself in not more than 100 characters"
+                    updateCardPreview={updateDataPreview}
+                  />
+                </div>
                 <fieldset className="grid grid-cols-2 col-span-full gap-x-8">
                   <legend className="sr-only">Customize Profile Look</legend>
                   <FormInput
@@ -287,7 +306,7 @@ const Index = () => {
           </section>
         </div>
       </section>
-      <section className="px-4 mt-4">
+      <section className="px-8 mt-2">
         <h2 className="text-center">Preview Generated Card</h2>
         {/* Place a card here */}
         <div className="mt-12">
@@ -300,6 +319,7 @@ const Index = () => {
             website={dataPreview.website}
             twitter={dataPreview.twitter}
             facebook={dataPreview.facebook}
+            aboutMe={dataPreview.aboutMe}
           />
         </div>
       </section>

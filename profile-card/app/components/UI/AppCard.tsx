@@ -3,6 +3,7 @@ import {
   AiFillFacebook,
   AiOutlineLink,
   AiTwotoneMail,
+  AiOutlineUserSwitch,
 } from "react-icons/ai";
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
   website?: string;
   twitter?: string;
   facebook?: string;
+  aboutMe?: string;
   classes?: string;
 };
 
@@ -72,8 +74,8 @@ const AppCard = (props: Props) => {
         {(props.nickname || props.email) && (
           <div className="space-y-2">
             {props.nickname && (
-              <p className="font-mono font-semibold text-md">
-                Nickname: ({props.nickname})
+              <p className="flex gap-x-2 items-center font-mono font-semibold text-md">
+                <AiOutlineUserSwitch /> <span>({props.nickname})</span>
               </p>
             )}
             {props.email && (
@@ -104,6 +106,11 @@ const AppCard = (props: Props) => {
                 {website}
               </a>{" "}
             </p>
+          </div>
+        )}
+        {props.aboutMe && (
+          <div className="mt-4 font-bold">
+            <p>{props.aboutMe}</p>
           </div>
         )}
       </div>

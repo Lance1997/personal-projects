@@ -1,31 +1,21 @@
 type Props = {
   label: string;
-  type:
-    | "email"
-    | "date"
-    | "text"
-    | "number"
-    | "checkbox"
-    | "radio"
-    | "image"
-    | "url"
-    | "color"
-    | "submit";
   name: string;
   placeholder?: string;
   error: string | Promise<string> | undefined;
   value: string | undefined;
   updateCardPreview?: (type: string, value: string) => void;
+  rows?: number;
+  cols?: number;
 };
 
-const FormInput = (props: Props) => {
+const FormTextArea = (props: Props) => {
+  const classes =
+    "block px-2 w-full text-gray-700 border-2 border-gray-200 shadow transition ease-in-out outline-none focus:shadow-xl focus:border-gray-500 shadow-pink-700 placeholder:text-gray-400";
   const inputId = props.label.toLowerCase();
-  const classes = `block px-2 ${
-    props.type !== "color" && "py-1"
-  } w-full h-8 text-gray-700 border-2 border-gray-200 shadow outline-none focus:shadow-xl focus:border-gray-500 shadow-pink-700 placeholder:text-gray-400`;
 
   return (
-    <div className="my-1 space-y-2">
+    <div className="my-3 space-y-2">
       <label htmlFor={inputId}>
         {props.label}
 
@@ -40,9 +30,11 @@ const FormInput = (props: Props) => {
         ) : null}
       </label>
       {props.updateCardPreview ? (
-        <input
+        <textarea
           placeholder={props.placeholder || ""}
-          type={props.type}
+          rows={props.rows || 3}
+          spellCheck={true}
+          maxLength={100}
           id={inputId}
           name={props.name}
           autoComplete="none"
@@ -56,9 +48,11 @@ const FormInput = (props: Props) => {
           }
         />
       ) : (
-        <input
+        <textarea
           placeholder={props.placeholder || ""}
-          type={props.type}
+          rows={props.rows || 3}
+          spellCheck={true}
+          maxLength={100}
           id={inputId}
           name={props.name}
           autoComplete="none"
@@ -72,4 +66,4 @@ const FormInput = (props: Props) => {
   );
 };
 
-export default FormInput;
+export default FormTextArea;

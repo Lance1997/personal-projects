@@ -6,7 +6,6 @@ import { GeneratedCard } from "../cards/index";
 import { getCards } from "~/lib/card";
 import {
   AiFillTwitterSquare,
-  AiFillFacebook,
   AiOutlineFacebook,
   AiFillLinkedin,
 } from "react-icons/ai";
@@ -78,19 +77,38 @@ export let loader: LoaderFunction = async ({ params, request }) => {
 };
 
 const CardViewPage = () => {
+  const copyToClipBoard = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    text: string
+  ) => {
+    const target = event.currentTarget;
+    navigator.clipboard.writeText(text);
+    target.textContent = "Copied";
+    setTimeout(() => {
+      target.textContent = "Copy Profile URL";
+    }, 2500);
+  };
   let cardData = useLoaderData<LoaderData>();
   return (
     <div className="mx-auto w-full max-w-xl h-screen">
       <section className="space-y-8">
         <h1>Profile Card</h1>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end space-x-4">
           <AppButton
             title="Edit Card"
             type="button"
             color="tertiary"
             size="small"
+            classes="hover:text-black"
             action={() => alert("Editing not added yet")}
+          />
+          <AppButton
+            title="Copy Profile URL"
+            type="button"
+            color="secondary"
+            size="small"
+            action={(event) => copyToClipBoard(event, cardData.card.url)}
           />
         </div>
 
@@ -104,6 +122,7 @@ const CardViewPage = () => {
             website={cardData.card.website}
             twitter={cardData.card.twitter}
             facebook={cardData.card.facebook}
+            aboutMe={cardData.card.aboutMe}
             classes="shadow-md"
           />
         </section>

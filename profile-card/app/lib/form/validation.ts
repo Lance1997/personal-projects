@@ -9,7 +9,8 @@ type Input = {
     | "facebook"
     | "email"
     | "textColor"
-    | "backgroundColor";
+    | "backgroundColor"
+    | "aboutMe";
   value: FormDataEntryValue | null;
 };
 
@@ -78,6 +79,15 @@ export const validateCardField = async ({ type, value }: Input) => {
     case "textColor":
       validationMessage = await string()
         .max(7)
+        .nullable()
+        .validate(value)
+        .then(() => "")
+        .catch((error) => error.message);
+      break;
+    case "aboutMe":
+      validationMessage = await string()
+        .min(10)
+        .max(100)
         .nullable()
         .validate(value)
         .then(() => "")
