@@ -4,7 +4,9 @@ import ThePrimaryLayout from "~/components/layouts/ThePrimaryLayout";
 const CardsPage = () => {
   return (
     <ThePrimaryLayout>
-      <Outlet />
+      <div className="px-2">
+        <Outlet />
+      </div>
     </ThePrimaryLayout>
   );
 };

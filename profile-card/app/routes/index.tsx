@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <ThePrimaryLayout>
-      <div className="grid place-items-center h-full text-center">
+      <div className="grid place-items-center px-2 h-full text-center">
         <section>
           <header className="space-y-4">
             <h1 className="">Profile Card Generator</h1>

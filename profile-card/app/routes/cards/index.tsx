@@ -172,8 +172,8 @@ const Index = () => {
   const transition = useTransition();
   const [searchParams] = useSearchParams();
   return (
-    <div className="grid grid-cols-2 h-full">
-      <section className="px-8 text-white bg-pink-600">
+    <div className="grid grid-cols-1 min-h-full md:grid-cols-2">
+      <section className="px-8 pb-3 text-white bg-pink-600 md:pb-0">
         <div>
           <h1 className="text-white">Generate a Card</h1>
           <h2 className="text-xl text-white">
@@ -202,7 +202,7 @@ const Index = () => {
                 ) : null}
               </div>
 
-              <section className="grid grid-cols-2 gap-x-8 w-full">
+              <section className="grid grid-cols-1 gap-x-8 w-full sm:grid-cols-2">
                 <FormInput
                   value={actionData?.fields?.nickname}
                   error={actionData?.fieldErrors?.nickname}
@@ -267,7 +267,7 @@ const Index = () => {
                     updateCardPreview={updateDataPreview}
                   />
                 </div>
-                <fieldset className="grid grid-cols-2 col-span-full gap-x-8">
+                <fieldset className="grid grid-cols-1 col-span-full gap-x-8 sm:grid-cols-2">
                   <legend className="sr-only">Customize Profile Look</legend>
                   <FormInput
                     value={backgroundColor}
