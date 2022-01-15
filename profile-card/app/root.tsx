@@ -16,7 +16,8 @@ export const meta: MetaFunction = () => {
   ];
   return {
     title: title,
-    "twitter:image": "https://profilecardgen.discoverlance.com/logo.png",
+    "twitter:image":
+      "https://profilecardgen.discoverlance.com/android-chrome-512x512.png",
     "twitter:image:alt": `${title} Logo`,
     "twitter:card": "summary",
     "twitter:creator": "@ArmahLance",
