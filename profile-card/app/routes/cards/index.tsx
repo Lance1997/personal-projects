@@ -234,7 +234,7 @@ const Index = () => {
                   value={actionData?.fields?.website}
                   error={actionData?.fieldErrors?.website}
                   name="website"
-                  type="text"
+                  type="url"
                   label="Website"
                   placeholder="full website url"
                   updateCardPreview={updateDataPreview}
