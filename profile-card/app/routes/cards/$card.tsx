@@ -1,4 +1,4 @@
-import { useLoaderData, useCatch, useParams } from "remix";
+import { useLoaderData, useCatch, useParams, Link } from "remix";
 import type { LoaderFunction, MetaFunction } from "remix";
 import AppCard from "~/components/UI/AppCard";
 import AppButton from "~/components/UI/AppButton";
@@ -92,7 +92,9 @@ const CardViewPage = () => {
   return (
     <div className="mx-auto w-full max-w-xl h-screen">
       <section className="space-y-8">
-        <h1>Profile Card</h1>
+        <Link to="/" prefetch="render">
+          <h1 className="cursor-pointer hover:text-pink-700">Profile Card</h1>
+        </Link>
 
         <div className="flex justify-end space-x-4">
           <AppButton
