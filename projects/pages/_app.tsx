@@ -1,7 +1,7 @@
-import { SessionProvider } from "next-auth/react";
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import LoadAuthentication from "@components/auth/LoadAuthentication";
+import { SessionProvider } from 'next-auth/react';
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import LoadAuthentication from '../components/auth/LoadAuthentication';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const authComponent = Component.auth;
